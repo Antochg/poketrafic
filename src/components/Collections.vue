@@ -2,12 +2,17 @@
     <div>
       <h1> Parcourir les collections </h1>
       <div id="collections">
-        <div id="collection"  v-for="set in sets" v-bind:key="set.id">
+        <div id="collection"  v-for="set in sets.data" v-bind:key="set.id">
             <div id="collection-logo-container">
               <img id="collection-logo" v-bind:src="set.images.logo">
             </div>
-            <h1 id="collection-title"> {{ set.name }}</h1>
+            <h1 id="collection-title"> {{ set.name}}</h1>
         </div>
+      </div>
+
+      <div id="navigator">
+        <button v-on:click="{this.currentPage++; updateSet()}"> - </button>
+        <button> + </button>
       </div>
     </div>
 </template>
@@ -20,11 +25,22 @@ export default {
   },
   data () {
     return {
-      sets: {}
+      sets: {},
+      currentPage : 1
     }
   },
   mounted: async function () {
-    this.sets = await pokemon.set.all()
+    await pokemon.set.where({pageSize : 10, page:1}).then((sets) => {
+      this.sets = sets
+      console.log(this.sets)
+    })
+  },
+  methods: {
+    async updateSet(){
+      await pokemon.set.where({pageSize : 10, page:this.currentPage}).then((sets) => {
+        this.sets=sets
+      })
+    }
   }
 }
 </script>
