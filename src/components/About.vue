@@ -1,22 +1,16 @@
 <template>
-  <div>
-    
-  </div>
+    <h1> About </h1>
 </template>
 
 <script>
 
-module.exports = {
-  components: {
-  },
+export default {
+  name: 'About',
   props: {
   },
   data () {
     return {
     }
-  },
-  methods: {
-    
   }
 }
 </script>
