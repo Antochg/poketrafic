@@ -1,11 +1,13 @@
 const Home = window.httpVueLoader('./components/Home.vue')
-const Panier = window.httpVueLoader('./components/Panier.vue')
-const Register = window.httpVueLoader('./components/Register.vue')
-const Login = window.httpVueLoader('./components/Login.vue')
+const Collections = window.httpVueLoader('./components/Collections.vue')
+const Search = window.httpVueLoader('./components/Search.vue')
+const Cart = window.httpVueLoader('./components/Cart.vue')
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/login', component: Login }
+  { path: '/collections', component: Collections },
+  { path: '/search', component: Search },
+  { path: '/cart', component: Cart },
 ]
 
 const router = new VueRouter({
