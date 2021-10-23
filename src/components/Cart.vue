@@ -1,11 +1,12 @@
 <template>
 	<div>
 		<div v-for="item in cart" :key="item.id">
-      <p>{{ item.name }}</p>
-      <!-- <img :src="item.images.small" /> -->
+      <!-- <p>{{ item.name }}</p>
+      <img :src="item.images.small" /> -->
 
-      <!-- <p>{{ item.card.name }}</p> 
-      <img :src="item.card.images.small" /> -->
+      <p>{{ item.card.name }}</p> 
+      <img :src="item.card.images.small" />
+      <p>{{ item.quantity }}</p>
 
       <button @click="removeFromCart(item.id)">Retirer</button>
     </div>
@@ -33,6 +34,7 @@ export default {
         localStorage.setItem("cart", JSON.stringify([]));
       }
       this.cart = JSON.parse(localStorage.getItem("cart"));
+      console.log(this.cart)
     },
   },
   beforeMount() {
