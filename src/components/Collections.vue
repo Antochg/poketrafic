@@ -1,20 +1,25 @@
 <template>
     <div>
       <h1> Parcourir les collections </h1>
-      <div id="collections">
-        <div id="collection"  v-for="set in sets.data" v-bind:key="set.id">
-            <div id="collection-logo-container">
-              <img id="collection-logo" v-bind:src="set.images.logo">
-            </div>
-            <h1 id="collection-title"> {{ set.name}}</h1>
+      <div id="navigator">
+          <button v-on:click="{if(this.currentPage > 1){this.currentPage--; updateSet()}}"> - </button>
+          <input type="text" readonly v-model="currentPage"/>
+          <button v-on:click="{if(this.currentPage < Math.floor(this.sets.totalCount / 8) + 1){this.currentPage++; updateSet()}}"> + </button>
+        </div>
+      <div v-if="this.ready">
+        <div id="collections">
+          <div id="collection"  v-for="set in sets.data" v-bind:key="set.id">
+              <div id="collection-logo-container">
+                <img id="collection-logo" v-bind:src="set.images.logo">
+              </div>
+              <h1 id="collection-title"> {{ set.name}}</h1>
+          </div>
         </div>
       </div>
-
-      <div id="navigator">
-        <button v-on:click="{this.currentPage++; updateSet()}"> - </button>
-        <button> + </button>
+      <div v-else>
+        <h1> Chargement </h1>
       </div>
-    </div>
+      </div>
 </template>
 
 <script>
@@ -25,20 +30,23 @@ export default {
   },
   data () {
     return {
+      ready : false,
       sets: {},
       currentPage : 1
     }
   },
   mounted: async function () {
-    await pokemon.set.where({pageSize : 10, page:1}).then((sets) => {
+    await pokemon.set.where({pageSize : 8, page:this.currentPage}).then((sets) => {
       this.sets = sets
-      console.log(this.sets)
+      this.ready = true
     })
   },
   methods: {
     async updateSet(){
-      await pokemon.set.where({pageSize : 10, page:this.currentPage}).then((sets) => {
+      this.ready = false;
+      await pokemon.set.where({pageSize : 8, page:this.currentPage}).then((sets) => {
         this.sets=sets
+        this.ready = true;
       })
     }
   }
