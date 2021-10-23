@@ -79,7 +79,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #cards{
     margin : auto;
     width : 75vw;
