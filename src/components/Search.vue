@@ -58,11 +58,10 @@ export default {
         const index = cartItems.indexOf(item)
         var quantity = cartItems[index].quantity
         quantity++
-        cartItems.splice(index, 1)
-        cartItems.push({ id: item.id, card: item.card, quantity: quantity })
+        cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity })
       }
       localStorage.setItem("cart", JSON.stringify(cartItems));
-        this.cart = JSON.parse(localStorage.getItem("cart"));
+      this.cart = JSON.parse(localStorage.getItem("cart"));
     }
 	}
 }

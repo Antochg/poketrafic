@@ -33,8 +33,7 @@ export default {
   },
   methods: {
     updateSet(){
-      pokemon.card.find(this.id).then(card =>{
-      })
+      pokemon.card.find(this.id)
     }
   }
   }
