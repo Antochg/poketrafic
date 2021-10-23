@@ -1,21 +1,17 @@
 <template>
-  <div id="nav">
-      <router-link to="/">Accueil</router-link>
-      <router-link to="/search">Recherche</router-link>
-      <router-link to="/collections">Collections</router-link>
-      <router-link to="/cart">Panier</router-link>
-      <router-link to="/about">À propos</router-link>
-      <router-view/>
+  <div>
+    <Menu/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 
-
+import Menu from './components/Menu.vue'
 export default {
   name: 'App',
   components: {
-
+    Menu
   }
 }
 </script>

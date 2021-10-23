@@ -9,10 +9,12 @@
       <div v-if="this.ready">
         <div id="collections">
           <div id="collection"  v-for="set in sets.data" v-bind:key="set.id">
-              <div id="collection-logo-container">
-                <img id="collection-logo" v-bind:src="set.images.logo">
-              </div>
-              <h1 id="collection-title"> {{ set.name}}</h1>
+             <a v-bind:href="'collection/'+ set.id">
+                <div id="collection-logo-container">
+                  <img id="collection-logo" v-bind:src="set.images.logo">
+                </div>
+                <h1 id="collection-title"> {{ set.name}}</h1>
+              </a>
           </div>
         </div>
       </div>
@@ -65,6 +67,10 @@ export default {
   flex-wrap : nowrap;
   flex-direction : column;
   justify-content : space-between;
+}
+
+#collection:hover{
+  cursor : pointer;
 }
 
 img#collection-logo{
