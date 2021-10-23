@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div id="card" v-bind:key="card.id">
     <div id="card-pic">
       <img id="card-photo" v-bind:src="card.images.large">
@@ -12,14 +13,12 @@
     </div>
     <div id="card-set-info">
       <h2 id="card-set-name"> Extension: {{card.set.name}}</h2>
-      <img id="card-set-pic" v-bind:src="card.set.images.logo">
+      <img id="card-set-pic" v-bind:src="card.set.images.symbol">
       <h2 id="card-set-series"> Série: {{card.set.series}}</h2>
     </div>
 
   </div>
-
-
-
+  </div>
 </template>
 
 <script>
@@ -29,12 +28,18 @@ export default {
   props: ['id'],
   data () {
     return {
+      card:{}
     }
   },
+
+  mounted: async function () {
+    await pokemon.card.find(this.id).then(card => {
+      this.card = card;
+      console.log(card);
+    })
+  },
+
   methods: {
-    updateSet(){
-      pokemon.card.find(this.id)
-    }
   }
   }
 </script>

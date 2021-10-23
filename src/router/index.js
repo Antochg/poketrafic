@@ -35,7 +35,7 @@ const routes = [
     component: Search,
   },
   {
-    path: "/card",
+    path: '/card/:id',
     name: "Card",
     component: Card,
     props : true,

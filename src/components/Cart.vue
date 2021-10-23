@@ -8,6 +8,7 @@
         <div id="card-info-container">
           <p>{{ item.card.name }}</p> 
         </div>
+        
         <div id="quantity-container">
           <button @click="decreaseQuantity(item.id)">-</button>
           <p>{{ item.quantity }}</p>
