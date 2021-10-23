@@ -4,6 +4,7 @@ import About from "@/components/About.vue";
 import Collections from "@/components/Collections.vue"
 import Cart from "@/components/Cart.vue"
 import Search from "@/components/Search.vue"
+import Card from "@/components/Card.vue"
 
 const routes = [
   {
@@ -30,6 +31,12 @@ const routes = [
     path: "/search",
     name: "Search",
     component: Search,
+  },
+  {
+    path: "/card",
+    name: "Card",
+    component: Card,
+    props : true,
   },
 ];
 
