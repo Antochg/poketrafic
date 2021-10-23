@@ -12,10 +12,12 @@
         <button v-on:click="{if(this.currentPage < Math.floor(this.cards.length  / 10) + 1){this.currentPage++; updateCurrentCards()}}"> + </button>
         <div id="cards">
             <div id="card" v-for="card in currentCards" v-bind:key="card.id">
+                <div v-on:click="goToCard(card.id)">
                 <img v-bind:src="card.images.small"/>
                 <h1> {{card.name}}</h1>
                 <p> {{card.rarity}}</p>
                 <p> {{card.cardmarket.prices.averageSellPrice}} $</p>
+                </div>
             </div>
         </div>
     </div>
@@ -75,6 +77,9 @@ export default {
             }
           }
       },
+      goToCard(id){
+          window.location.replace(window.location.origin+'/card/' + id)
+      }
   }
 }
 </script>
