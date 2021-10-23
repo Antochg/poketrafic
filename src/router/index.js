@@ -4,12 +4,9 @@ import About from "@/components/About.vue";
 import Collections from "@/components/Collections.vue"
 import Cart from "@/components/Cart.vue"
 import Search from "@/components/Search.vue"
-<<<<<<< HEAD
 import Card from "@/components/Card.vue"
-=======
 import Collection from "@/components/Collection.vue"
 
->>>>>>> 90259f06c1af1b3dabe88b550b8f95bbe66eebc3
 
 const routes = [
   {
@@ -38,19 +35,17 @@ const routes = [
     component: Search,
   },
   {
-<<<<<<< HEAD
-    path: "/card",
+    path: '/card/:id',
     name: "Card",
     component: Card,
     props : true,
   },
-=======
+  {
     path:'/collection/:id',
     name: "Collection",
     component: Collection,
     props : true
   }
->>>>>>> 90259f06c1af1b3dabe88b550b8f95bbe66eebc3
 ];
 
 const router = createRouter({
