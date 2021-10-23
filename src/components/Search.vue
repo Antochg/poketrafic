@@ -51,16 +51,15 @@ export default {
       }
       const cartItems = JSON.parse(localStorage.getItem("cart"));
       if (!this.isInCart(cardId)) {
-        console.log("if")
         cartItems.push({ id:item.id ,card: item, quantity: 1 });
       }
       else {
-        console.log("else")
         const item = cartItems.find(({ id }) => id === cardId);
         const index = cartItems.indexOf(item)
         var quantity = cartItems[index].quantity
         quantity++
-        cartItems.splice(index, 1, { id:item.id ,card: item, quantity: quantity})
+        cartItems.splice(index, 1)
+        cartItems.push({ id: item.id, card: item.card, quantity: quantity })
       }
       localStorage.setItem("cart", JSON.stringify(cartItems));
         this.cart = JSON.parse(localStorage.getItem("cart"));
