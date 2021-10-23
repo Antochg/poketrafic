@@ -3,6 +3,7 @@
   
   <div v-if="this.ready">
     <div id="card" v-bind:key="card.id">
+      <button @click="addToCart(card.id)">add to cart</button>
       <div id="card-pic">
         <img id="card-photo" v-bind:src="card.images.large">
       </div>
@@ -20,7 +21,7 @@
         
       </div>
       <div id="card-sell">
-        <h1 id="card-price">{{card.cardmarket.averageSellPrice}}€</h1>
+        <h1 id="card-price">{{card.cardmarket.prices.averageSellPrice}}€</h1>
       </div>
     </div>
   </div>
@@ -35,7 +36,8 @@ export default {
   data () {
     return {
       ready : false,
-      card:{}
+      card:{},
+			cart: [],
     }
   },
 
@@ -54,7 +56,36 @@ export default {
         this.card = card;
         this.ready = true
       })
-    }
+    },
+    isInCart(cardId) {
+			if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+      }
+			else {
+				this.cart = JSON.parse(localStorage.getItem("cart"));
+			}
+      const cartItem = this.cart.find(({ id }) => id === cardId);
+      return Boolean(cartItem);
+    },
+    addToCart(cardId) {
+      const item = this.card;
+      if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+      }
+      const cartItems = JSON.parse(localStorage.getItem("cart"));
+      if (!this.isInCart(cardId)) {
+        cartItems.push({ id: item.id, card: item, quantity: 1 });
+      }
+      else {
+        const item = cartItems.find(({ id }) => id === cardId);
+        const index = cartItems.indexOf(item)
+        var quantity = cartItems[index].quantity
+        quantity++
+        cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity })
+      }
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      this.cart = JSON.parse(localStorage.getItem("cart"));
+    },
   }
   }
 </script>
