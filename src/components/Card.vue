@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div id=card v-bind:key="card.id">
     <div id=card-pic>
       <img id="card-photo" v-bind:src="card.images.large">
@@ -21,11 +20,9 @@
 
 
 
-=======
 	<div>
 		
 	</div>
->>>>>>> 90259f06c1af1b3dabe88b550b8f95bbe66eebc3
 </template>
 
 <script>
