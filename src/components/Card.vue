@@ -12,11 +12,12 @@
         <h2 id="card-supertype">Type de carte: {{ card.supertype}}</h2>
         <h2 id="card-subtypes">Sous-types: {{ card.subtypes}}</h2>
         <h2 id="card-rarity">Rareté: {{ card.rarity}}</h2>
+        <h2 id="card-set-series"> Série: {{card.set.series}}</h2>
       </div>
       <div id="card-set-info">
         <h2 id="card-set-name"> Extension: {{card.set.name}}</h2>
         <img id="card-set-pic" v-bind:src="card.set.images.symbol">
-        <h2 id="card-set-series"> Série: {{card.set.series}}</h2>
+        
       </div>
       <div id="card-sell">
         <h1 id="card-price">{{card.cardmarket.averageSellPrice}}€</h1>
@@ -60,4 +61,24 @@ export default {
 
 <style scoped>
 
+div#card{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content : space-evenly;
+}
+
+
+img#card-photo{
+  height: 30em;
+  width: auto;
+}
+
+div#card-set-info{
+  display: flex;
+  flex-direction: column;
+}
+
+img#card-set-pic{
+  height: 4em;
+}
 </style>
