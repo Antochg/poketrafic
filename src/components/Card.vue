@@ -19,7 +19,7 @@
         <h2 id="card-set-series"> Série: {{card.set.series}}</h2>
       </div>
       <div id="card-sell">
-        <h1 id="card-price">{{card.cardmarket.averageSellPrice}}€</h1>
+        <h1 id="card-price">{{card.cardmarket.prices.averageSellPrice}}€</h1>
       </div>
     </div>
   </div>
