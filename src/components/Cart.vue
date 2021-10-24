@@ -27,8 +27,30 @@
     </div>
 
     <div id="checkout-container">
+      <h1>Livraison</h1>
+      <input id="address" v-model="address" type="text" placeholder="Adresse">
+      <input id="zipCode" v-model="zipCode" type="text" placeholder="Code postal">
+      <input id="city" v-model="city" type="text" placeholder="Ville">
+      <input id="country" v-model="country" type="text" placeholder="Pays">
+
       <h1>Total</h1>
       <p>{{ this.totalPrice }} €</p>
+
+      <button @click="checkout()">Payer</button>
+    </div>
+
+    <div id="checkout-validation">
+      <div id="myModalCheckoutValidation" class="modal">
+        <div class="modal-content">
+          <span class="close" @click="closeModalCheckoutValidation()">&times;</span>
+
+          <p>Votre commande d'une valeur de {{ totalPrice }} a été enregistré.</p>
+          <p>Adresse de livraison : {{ address }}</p>
+          <p>Code postal : {{ zipCode }}</p>
+          <p>Ville : {{ city }}</p>
+          <p>Pays : {{ country }}</p>
+        </div>
+      </div>
     </div>
 	</div>
 </template>
@@ -39,30 +61,34 @@ export default {
   data () {
     return {
       cart: [],
-      totalPrice: 0
+      totalPrice: 0,
+      address: "",
+      zipCode: "",
+      city: "",
+      country: "",
     }
   },
 	methods: {
     increaseQuantity(cardId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
       const item = cartItems.find(({ id }) => id === cardId);
-      const index = cartItems.indexOf(item)
-      var quantity = cartItems[index].quantity
-      quantity++
-      cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity })
+      const index = cartItems.indexOf(item);
+      var quantity = cartItems[index].quantity;
+      quantity++;
+      cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity });
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
-      this.totalPrice += item.card.cardmarket.prices.averageSellPrice
+      this.totalPrice += item.card.cardmarket.prices.averageSellPrice;
     },
     decreaseQuantity(cardId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
       const item = cartItems.find(({ id }) => id === cardId);
-      const index = cartItems.indexOf(item)
-      var quantity = cartItems[index].quantity
+      const index = cartItems.indexOf(item);
+      var quantity = cartItems[index].quantity;
       if(quantity > 1) {
-        quantity--
-        cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity })
-        this.totalPrice -= item.card.cardmarket.prices.averageSellPrice
+        quantity--;
+        cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity });
+        this.totalPrice -= item.card.cardmarket.prices.averageSellPrice;
       }
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
@@ -83,6 +109,28 @@ export default {
       this.cart = JSON.parse(localStorage.getItem("cart"));
       this.totalPrice = 0;
     },
+    checkout() {
+      var modal = document.getElementById("myModalCheckoutValidation");
+      modal.style.display = "block";
+
+      // window.onclick = function(event) {
+      //   if (event.target == modal) {
+      //     modal.style.display = "none";
+      //   }
+      // }
+    },
+    closeModalCheckoutValidation() {
+      this.removeAll();
+      this.clearDeliveryAddress();
+      var modal = document.getElementById("myModalCheckoutValidation");
+      modal.style.display = "none";
+    },
+    clearDeliveryAddress() {
+      this.address = "";
+      this.zipCode = "";
+      this.city = "";
+      this.country = "";
+    },
 		getCart() {
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));
@@ -91,7 +139,7 @@ export default {
     },
     getCheckoutTotal() {
       for(var item of this.cart) {
-        this.totalPrice += (item.card.cardmarket.prices.averageSellPrice*item.quantity)
+        this.totalPrice += (item.card.cardmarket.prices.averageSellPrice*item.quantity);
       }
     },
   },
