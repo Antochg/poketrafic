@@ -19,6 +19,10 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -32,10 +36,29 @@ export default {
 }
 
 #router-view{
-  max-width : 80%;
+  max-width : 70%;
   margin : auto;
   background-color : #F7F7F7;
   padding : 50px;
   min-height : 60vh;
+}
+
+#navigator{
+	margin : auto;
+	width : 100px;
+	display : flex;
+	flex-direction : row;
+	flex-wrap : nowrap;
+	justify-content : space-around;
+	margin-bottom : 30px;
+}
+#navigator button{
+	padding : 10px;
+}
+
+#navigator input{
+	padding : 10px;
+  max-width : 30px;
+  text-align : center;
 }
 </style>
