@@ -43,7 +43,7 @@ export default {
 
 #navigator{
 	margin : auto;
-	width : 200px;
+	width : 100px;
 	display : flex;
 	flex-direction : row;
 	flex-wrap : nowrap;
@@ -56,6 +56,7 @@ export default {
 
 #navigator input{
 	padding : 10px;
-	width : 10px;
+  max-width : 30px;
+  text-align : center;
 }
 </style>

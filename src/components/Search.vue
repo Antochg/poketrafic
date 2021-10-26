@@ -51,16 +51,17 @@
 						<h1 id="card-title"> {{ card.name }}</h1>
 						<h2 id="card-rarity"> {{ card.rarity}}</h2>
 						</a>
-						<div v-if="card.cardmarket!= undefined">
-							<h2 id="card-price"> {{ card.cardmarket.prices.averageSellPrice }} $ </h2>
-							<div id="button-container">
-								<button @click="addToCart(card.id)">Ajouter au panier</button>
-							</div>
-						</div>
-						<div v-else>
+						
+						<div v-if="card.cardmarket== undefined || card.cardmarket.prices == undefined || card.cardmarket.prices.averageSellPrice == undefined">
 							<h2 id="card-price"> Rupture de stock </h2>
 							<div id="button-container">
 								<button disabled>Indisponible</button>
+							</div>
+						</div>
+						<div v-else>
+							<h2 id="card-price"> {{ card.cardmarket.prices.averageSellPrice }} $ </h2>
+							<div id="button-container">
+								<button @click="addToCart(card.id)">Ajouter au panier</button>
 							</div>
 						</div>
 					</div>
@@ -158,6 +159,13 @@ export default {
 	flex-direction: column;
 	margin-top : 10px;
 	margin-bottom : 10px;
+	padding-top : 30px;
+	padding-bottom : 30px;
+}
+
+#card:hover{
+	background-color : #d0def4;
+	transition : 0.5s;
 }
 
 #card-image-container{

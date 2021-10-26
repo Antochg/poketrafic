@@ -2,23 +2,29 @@
 <div>
     <div v-if="ready">
         <div id="set-infos">
-            <h1> Collection  {{set.name}}</h1>
             <div id="set-logo-container">
                 <img id="set-logo" v-bind:src="set.images.logo">
             </div>
         </div>
         <div id="navigator">
-            <button v-on:click="{if(this.currentPage > 1){this.currentPage--; updateCurrentCards()}}"> - </button>
+            <button v-on:click="{if(this.currentPage > 1){this.currentPage--; updateCurrentCards()}}"> ⯇ </button>
             <input type="text" readonly v-model="currentPage"/>
-            <button v-on:click="{if(this.currentPage < Math.floor(this.cards.length  / 10) + 1){this.currentPage++; updateCurrentCards()}}"> + </button>
+            <button v-on:click="{if(this.currentPage < Math.floor(this.cards.length  / 9) + 1){this.currentPage++; updateCurrentCards()}}"> ⯈ </button>
         </div>
         <div id="cards">
             <div id="card" v-for="card in currentCards" v-bind:key="card.id">
                 <div v-on:click="goToCard(card.id)">
-                <img v-bind:src="card.images.small"/>
-                <h1> {{card.name}}</h1>
-                <p> {{card.rarity}}</p>
-                <p> {{card.cardmarket.prices.averageSellPrice}} $</p>
+                    <div id="card-image-container">
+                        <img v-bind:src="card.images.small"/>
+                    </div>
+                    <h1 id="card-title"> {{card.name}}</h1>
+                    <h2 id="card-rarity"> {{card.rarity}}</h2>
+                    <div v-if="card.cardmarket != undefined">
+                        <h2 id="card-price"> {{card.cardmarket.prices.averageSellPrice}} $</h2>
+                    </div>
+                    <div v-else>
+                        <h2 id="card-price"> Rupture de stock </h2>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,7 +62,7 @@ export default {
 
       await pokemon.card.all({ q: 'set.id:'+this.id}).then(result => {
           this.cards = result
-        for(var i = this.currentPage-1; i <= (this.currentPage*10)-1; i++) {
+        for(var i = this.currentPage-1; i <= (this.currentPage*9)-1; i++) {
             this.currentCards.push(this.cards[i])
         }
         console.log(this.currentCards)
@@ -64,13 +70,13 @@ export default {
   },
   methods: {
       updateCurrentCards(){
-          if(this.currentPage > 0 && this.currentPage <= Math.floor(this.cards.length / 10) + 1){
+          if(this.currentPage > 0 && this.currentPage <= Math.floor(this.cards.length / 9) + 1){
             this.currentCards = []
             let TotalCardCount = this.cards.length
             console.log(TotalCardCount)
-            let index = 0 + (this.currentPage - 1) * 10
+            let index = 0 + (this.currentPage - 1) * 9
             let done = false;
-            let count = 10;
+            let count = 9;
             while(!done){
                 if(index < TotalCardCount){
                     if(count > 0){
@@ -97,37 +103,74 @@ export default {
 
 
 #set-infos{
-    display : block;
+    display : flex;
     flex-direction : column;
     flex-wrap : wrap;
     justify-content : space-around;
     text-align: center;
+    margin-bottom : 50px;
 }
 
 #set-logo-container > img{
-    display: inherit;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
+    max-width : 500px;
+    max-height : 500px;
+    height : auto;
+    width : auto;
 }
 
 #cards{
     margin : auto;
-    width : 75vw;
     display: flex;
     flex-direction : row;
     flex-wrap : wrap;
     justify-content : space-evenly;
 }
+
 #card{
-    width : 20vw;
-    height : auto;
-    padding : 1em;
+	width : 30%;
+	min-width : fit-content;
+	margin : auto;
+	height :auto;
+	display : flex;
+	flex-wrap : wrap;
+	flex-direction: column;
+	margin-top : 10px;
+	margin-bottom : 10px;
+    padding-top : 30px;
 }
 
 #card:hover{
-    background-color : #E7E7E7E7;
     cursor : pointer;
+    background-color : #d0def4;
+    transition : 0.5s;
+}
+
+#card-image-container{
+	width : fit-content;
+	margin :auto;
+}
+
+#card-img{
+	height : 330px;
+	width : auto;
+}
+
+#card a {
+	text-decoration : none;
+	color : black;
+}
+
+#card h1, #card h2{
+	width : 100%;
+	text-align : center;
+	text-decoration : none;
+	font-size : 1.3em;
+}
+
+#card h2{
+	font-family: 'Work Sans', sans-serif;
 }
 
 
