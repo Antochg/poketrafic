@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="this.cart.length != 0">
+    <div id="cart-form" v-if="this.cart.length != 0">
       <div id="checkout-container">
         <h1>Livraison</h1>
         <input id="address" v-model="address" type="text" placeholder="Adresse" />
@@ -14,39 +14,57 @@
         <div v-if="totalPrice > 0 && address != '' && zipCode != '' && city != '' && country != ''">
           <button @click="checkout()">Payer</button>
         </div>
-      </div>
 
-      <div class="items">
         <button @click="removeAll()">Vider le panier</button>
-        <div v-for="item in cart" :key="item.id">
-          <div id="cart-item">
-            <div id="card-image-container" v-on:click="goToCard(item.id)">
-              <img id="card-img" :src="item.card.images.small" />
-            </div>
-
-            <div id="card-info-container">
-              <h1 v-on:click="goToCard(item.id)">{{ item.card.name }}</h1>
-              <p>{{ item.card.cardmarket.prices.averageSellPrice }} €</p>
-            </div>
-
-            <div id="quantity-container" class="cart-item-end">
-              <button class="quantity-button" @click="decreaseQuantity(item.id)">-</button>
-              <p>{{ item.quantity }}</p>
-              <button class="quantity-button" @click="increaseQuantity(item.id)">+</button>
-            </div>
-
-            <div id="total-container" class="cart-item-end">
-              <p>
-                {{ item.card.cardmarket.prices.averageSellPrice * item.quantity }}
-              </p>
-            </div>
-
-            <div id="button-container" class="cart-item-end">
-              <button @click="removeFromCart(item.id)">Retirer</button>
-            </div>
-          </div>
-        </div>
       </div>
+      <div id="items">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="5"> Panier </th>
+            </tr>
+            <tr>
+              <th id="image-preview"> Aperçu </th>
+              <th> Nom </th>
+              <th> Prix à l'unité </th>
+              <th> Prix total </th>
+              <th> Quantité </th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr v-for="item in cart" :key="item.id">
+            <td id="image-preview">
+              <div id="card-image-container" v-on:click="goToCard(item.id)">
+                  <img id="card-img" :src="item.card.images.small" />
+              </div>
+            </td>
+            <td>
+              <h1 v-on:click="goToCard(item.id)">{{ item.card.name }}</h1>
+            </td>
+            <td>
+              <p>{{ item.card.cardmarket.prices.averageSellPrice }} $</p>
+            </td>
+            <td>
+              <p>{{ item.card.cardmarket.prices.averageSellPrice * item.quantity }} $</p>
+            </td>
+            <td>
+              <div id="quantity-manager">
+                <div id="quantity-container" class="cart-item-end">
+                    <button class="quantity-button" @click="decreaseQuantity(item.id)">-</button>
+                    <p>{{ item.quantity }}</p>
+                    <button class="quantity-button" @click="increaseQuantity(item.id)">+</button>
+                </div>
+                <div id="button-container" class="cart-item-end">
+                    <button @click="removeFromCart(item.id)">Retirer</button>
+                </div>
+               </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      
 
       <div id="checkout-validation" class="modal">
         <div class="modal-content">
@@ -170,25 +188,65 @@ export default {
 </script>
 
 <style scoped>
-.items {
-  width: 65%;
-  float: left;
+
+#cart-form{
+  display : flex;
+  flex-direction : row;
+  flex-wrap : wrap;
+}
+
+#items{
+  flex:4;
+  min-width : 70%;
+  display:flex;
+  flex-direction : column;
 }
 
 #checkout-container {
-  width: 30%;
-  float: right;
+  flex: 1;
+  background-color : blue; 
+}
+
+table{
+  background-color : #E7E7E7;
+  border-collapse : collapse;
+}
+
+thead {
+  border : 1px solid black;
+}
+
+thead tr, thead tr th{
+  border : 1px solid black;
+}
+
+tbody tr, tbody tr td{
+  background-color:white;
+  border: 1px solid black;
+}
+
+#image-preview{
+  width : 100px;
+}
+
+th{
+  width : fit-content;
+}
+
+td{
+  width : fit-content;
+  text-align : center;
 }
 
 #cart-item {
   display : flex;
   flex-direction : row;
   flex-wrap : wrap;
-  margin-bottom: 20px;
+  border : 5px black solid; 
 }
 
 #card-image-container {
-  width: 20%;
+  width : 100%;
   height: auto;
   display: flex;
   flex-wrap : nowrap;
@@ -199,15 +257,43 @@ export default {
   display: flex;
   flex-wrap : nowrap;
   flex-direction : column;
+  justify-content : space-evenly;
 }
 
 #quantity-container {
-  vertical-align: middle;
-  height: 20%;
+  width : 100%;
+  display : flex;
+  flex-flow : row nowrap;
+  justify-content : space-evenly;
 }
 
-.quantity-button {
-  width: 40%;
+#quantity-manager{
+  display : flex;
+  width : 100%;
+  flex-direction : column;
+  flex-wrap : nowrap;
+  height : 100%;
+  justify-content : space-evenly;
+}
+
+#quantity-manager p {
+  font-size : 29px;
+}
+
+.quantity-button{
+  padding : 5px 10px;
+}
+
+#button-container {
+  width : 100%;
+  display : flex;
+  flex-flow : row nowrap;
+  justify-content : space-evenly;
+}
+
+#button-container button{
+  margin : 10px;
+  width : 90%;
 }
 
 .cart-item-end {
