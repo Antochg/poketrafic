@@ -2,14 +2,33 @@
 	<div id="search">
 		<!-- Formulaire d'input pour la recherche -->
 		<div id="search-inputs">
-			<input type="text" v-model="searchInput" placeholder="Ex : Charizard"/>
-			<div v-if="this.rarities != undefined">
+			<div id="search-input-text">
+				<input type="text" v-model="searchInput" placeholder="Ex : Charizard"/>
+			</div>
+			<div id="search-input-select" v-if="this.rarities != undefined">
 				<select name="rarities" id="rarities-filter" v-model="raritySelected">
 					<option value=""> -- Choisir une rareté -- </option>
 					<option v-for="rarity in rarities" :value="rarity" :key="rarity"> {{rarity}} </option>
 				</select>
 			</div>
-			<button @click="this.currentPage = 1 ; getCards()">Rechercher la carte</button>
+			<!-- Radio button pour le tri des résultats -->
+			<div id="search-radio-buttons">
+				<p> Trier par : </p>
+				<div id="search-radio-button">
+					<input type="radio" id="nameAsc" value="name" v-model="filterSelected"/>
+					<label for="nameAsc"> Ordre alphabétique </label>
+				</div>
+				<div id="search-radio-button">
+					<input type="radio" id="setRealeaseAsc" value="set.releaseDate" v-model="filterSelected"/>
+					<label for="nameAsc"> Date de sorite la plus ancienne</label>
+				</div>
+				<div id="search-radio-button">
+					<input type="radio" id="setRealeaseAsc" value="-set.releaseDate" v-model="filterSelected"/>
+					<label for="nameAsc"> Date de sorite la plus récente</label>
+				</div>
+			</div>
+
+			<button @click="this.currentPage = 1 ; getCards()">Recherche</button>
 		</div>
 
 		<!-- Affichage des résultats -->
@@ -30,10 +49,19 @@
 							<img id="card-img" v-bind:src="card.images.small">
 						</div>
 						<h1 id="card-title"> {{ card.name }}</h1>
+						<h2 id="card-rarity"> {{ card.rarity}}</h2>
 						</a>
 						<div v-if="card.cardmarket!= undefined">
-							<h2 id="card"> {{ card.cardmarket.prices.averageSellPrice }} </h2>
-							<button @click="addToCart(card.id)">Ajouter au panier</button>
+							<h2 id="card-price"> {{ card.cardmarket.prices.averageSellPrice }} $ </h2>
+							<div id="button-container">
+								<button @click="addToCart(card.id)">Ajouter au panier</button>
+							</div>
+						</div>
+						<div v-else>
+							<h2 id="card-price"> Rupture de stock </h2>
+							<div id="button-container">
+								<button disabled>Indisponible</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -57,9 +85,10 @@ export default {
 			cards: undefined,
 			cart: [],
 			currentPage: 1,
-      searchInput: "",
+			searchInput: "",
 			rarities : undefined,
-			raritySelected : ""
+			raritySelected : "",
+			filterSelected : "-set.releaseDate"
     }
   },
 	mounted : async function(){
@@ -70,13 +99,15 @@ export default {
 	methods: {
 		async getCards() {
 			if(this.raritySelected != ""){
-				let rarity = this.raritySelected.replace(" ", "-")
-				await pokemon.card.where({ q : 'name:*'+this.searchInput+"* rarity:" + rarity, pageSize:9, page:this.currentPage }).then((cards) => {
+				let rarity = this.raritySelected
+				await pokemon.card.where({ q : 'name:"*'+this.searchInput+'*" !rarity:"' + rarity+'"', pageSize:9, page:this.currentPage, orderBy: this.filterSelected }).then((cards) => {
 					console.log(cards)
 					this.cards = cards
+				}).catch((error) => {
+					console.log(error)
 				})
 			}else{
-				await pokemon.card.where({ q : 'name:*'+this.searchInput+"*", pageSize:9, page:this.currentPage }).then((cards) => {
+				await pokemon.card.where({ q : 'name:"*'+this.searchInput+'*"', pageSize:9, page:this.currentPage,  orderBy: this.filterSelected }).then((cards) => {
 					console.log(cards)
 					this.cards = cards
 					console.log(this.cards.data)
@@ -125,7 +156,6 @@ export default {
 	display : flex;
 	flex-wrap : wrap;
 	flex-direction: column;
-	background-color : red;
 	margin-top : 10px;
 	margin-bottom : 10px;
 }
@@ -140,9 +170,32 @@ export default {
 	width : auto;
 }
 
-#card h1 {
+#card a {
+	text-decoration : none;
+	color : black;
+}
+
+#card h1, #card h2{
 	width : 100%;
 	text-align : center;
+	text-decoration : none;
+	font-size : 1.3em;
+}
+
+#card h2{
+	font-family: 'Work Sans', sans-serif;
+}
+
+#card #button-container {
+	width : 100%;
+	display:flex;
+	justify-content : space-around;
+}
+
+#card #button-container button{
+	width : fit-content;
+	padding : 10px 30px 10px 30px;
+	margin : auto;
 }
 
 #cards{
@@ -158,29 +211,21 @@ export default {
 	margin-bottom : 30px;
 	background-color : #E7E7E7;
 	padding : 40px;
+	height : 100%;
+}
+
+#search-input-text{
+	display : flex;
+	width : fit-content;
+}
+
+#search-input-text input{
+	height : fit-content;
 }
 
 #search-page-result{
 	display : flex;
 	flex-direction : column;
 	justify-content : space-evenly;
-}
-
-#navigator{
-	margin : auto;
-	width : 200px;
-	display : flex;
-	flex-direction : row;
-	flex-wrap : nowrap;
-	justify-content : space-around;
-	margin-bottom : 30px;
-}
-#navigator button{
-	padding : 10px;
-}
-
-#navigator input{
-	padding : 10px;
-	width : 10px;
 }
 </style>

@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap%27');
+
 * {
   margin: 0;
   padding: 0;
@@ -37,5 +39,23 @@ export default {
   background-color : #F7F7F7;
   padding : 50px;
   min-height : 60vh;
+}
+
+#navigator{
+	margin : auto;
+	width : 200px;
+	display : flex;
+	flex-direction : row;
+	flex-wrap : nowrap;
+	justify-content : space-around;
+	margin-bottom : 30px;
+}
+#navigator button{
+	padding : 10px;
+}
+
+#navigator input{
+	padding : 10px;
+	width : 10px;
 }
 </style>

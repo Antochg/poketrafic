@@ -7,9 +7,11 @@
                 <img id="set-logo" v-bind:src="set.images.logo">
             </div>
         </div>
-        <button v-on:click="{if(this.currentPage > 1){this.currentPage--; updateCurrentCards()}}"> - </button>
-        <input type="text" readonly v-model="currentPage"/>
-        <button v-on:click="{if(this.currentPage < Math.floor(this.cards.length  / 10) + 1){this.currentPage++; updateCurrentCards()}}"> + </button>
+        <div id="navigator">
+            <button v-on:click="{if(this.currentPage > 1){this.currentPage--; updateCurrentCards()}}"> - </button>
+            <input type="text" readonly v-model="currentPage"/>
+            <button v-on:click="{if(this.currentPage < Math.floor(this.cards.length  / 10) + 1){this.currentPage++; updateCurrentCards()}}"> + </button>
+        </div>
         <div id="cards">
             <div id="card" v-for="card in currentCards" v-bind:key="card.id">
                 <div v-on:click="goToCard(card.id)">
