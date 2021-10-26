@@ -93,6 +93,7 @@ export default {
 
 <style scoped>
 
+
 #set-infos{
     display : block;
     flex-direction : column;
@@ -105,7 +106,7 @@ export default {
     display: inherit;
     margin-left: auto;
     margin-right: auto;
-    width: 45%;
+    width: 40%;
 }
 
 #cards{
@@ -117,7 +118,7 @@ export default {
     justify-content : space-evenly;
 }
 #card{
-    width : auto;
+    width : 20vw;
     height : auto;
     padding : 1em;
 }
