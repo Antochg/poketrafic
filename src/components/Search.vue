@@ -13,6 +13,7 @@
 				<button v-on:click="{if(this.currentPage > 1){this.currentPage--; getCards()}}"> - </button>
 				<input type="text" readonly v-model="currentPage"/>
 				<button v-on:click="{if(this.currentPage < Math.floor(this.cards.totalCount  / 8)){this.currentPage++; getCards()}}"> + </button>
+				<button @click="$router.push('/cart')">Payer</button>
 				<div id="cards">
 					<div id="card" v-for="card in cards.data" v-bind:key="card.id">
 						<div id="card-image-container">
@@ -21,8 +22,7 @@
 						<h1 id="card-title"> {{ card.name }}</h1>
 						<div v-if="card.cardmarket!= undefined">
 							<h2 id="card"> {{ card.cardmarket.prices.averageSellPrice }} </h2>
-							<button @click="$router.push('/cart')">Payer</button>
-							<button @click="addToCart(card.id)">add to cart</button>
+							<button @click="addToCart(card.id)">Ajouter au panier</button>
 						</div>
 					</div>
 				</div>
