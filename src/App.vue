@@ -1,17 +1,19 @@
 <template>
   <div>
-    <Menu/>
-    <router-view/>
+    <Header/>
+    <div id="router-view">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
 
-import Menu from './components/Menu.vue'
+import Header from './components/Header.vue'
 export default {
   name: 'App',
   components: {
-    Menu
+    Header
   }
 }
 </script>
@@ -27,5 +29,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#router-view{
+  max-width : 60%;
+  margin : auto;
+  background-color : #F7F7F7;
+  padding : 50px;
+  min-height : 60vh;
 }
 </style>

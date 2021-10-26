@@ -1,36 +1,49 @@
 <template>
-	<div>
-    <input type="text" v-model="searchInput"/>
-		<div v-if="this.rarities != undefined">
-		<select name="rarities" id="rarities-filter" v-model="raritySelected">
-			<option value=""> -- Choisir une option -- </option>
-			<option v-for="rarity in rarities" :value="rarity" :key="rarity"> {{rarity}} </option>
-		</select>
+	<div id="search">
+		<!-- Formulaire d'input pour la recherche -->
+		<div id="search-inputs">
+			<input type="text" v-model="searchInput" placeholder="Ex : Charizard"/>
+			<div v-if="this.rarities != undefined">
+				<select name="rarities" id="rarities-filter" v-model="raritySelected">
+					<option value=""> -- Choisir une rareté -- </option>
+					<option v-for="rarity in rarities" :value="rarity" :key="rarity"> {{rarity}} </option>
+				</select>
+			</div>
+			<button @click="this.currentPage = 1 ; getCards()">Rechercher la carte</button>
 		</div>
-		<button @click="this.currentPage = 1 ; getCards()">Search</button>
+
+		<!-- Affichage des résultats -->
 		<div v-if="this.cards != undefined">
-			<div v-if="this.cards.totalCount > 0">
-				<button v-on:click="{if(this.currentPage > 1){this.currentPage--; getCards()}}"> - </button>
-				<input type="text" readonly v-model="currentPage"/>
-				<button v-on:click="{if(this.currentPage < Math.floor(this.cards.totalCount  / 8)){this.currentPage++; getCards()}}"> + </button>
+			<div id="search-page-result" v-if="this.cards.totalCount > 0">
+				<!-- Navigateur de page -->
+				<div id="navigator">
+					<button v-on:click="{if(this.currentPage > 1){this.currentPage--; getCards()}}"> ⯇ </button>
+					<input type="text" readonly v-model="currentPage"/>
+					<button v-on:click="{if(this.currentPage < Math.floor(this.cards.totalCount  / 9)){this.currentPage++; getCards()}}"> ⯈ </button>
+				</div>
+				
+				<!-- Affichage en mosaïque des cartes -->
 				<div id="cards">
 					<div id="card" v-for="card in cards.data" v-bind:key="card.id">
+						<a v-bind:href="'/card/' + card.id">
 						<div id="card-image-container">
 							<img id="card-img" v-bind:src="card.images.small">
 						</div>
 						<h1 id="card-title"> {{ card.name }}</h1>
+						</a>
 						<div v-if="card.cardmarket!= undefined">
 							<h2 id="card"> {{ card.cardmarket.prices.averageSellPrice }} </h2>
-							<button @click="$router.push('/cart')">Payer</button>
-							<button @click="addToCart(card.id)">add to cart</button>
+							<button @click="addToCart(card.id)">Ajouter au panier</button>
 						</div>
 					</div>
 				</div>
+
 			</div>
-			<div v-else>
+		<!-- Si le résultat est vide (pas de résultat correspondant à la recherche) -->
+		<div v-else>
 			<h1> Aucun résultat </h1>
-			</div>
-		</diV>
+		</div>
+		</div>
 	</div>
 </template>
 
@@ -58,12 +71,12 @@ export default {
 		async getCards() {
 			if(this.raritySelected != ""){
 				let rarity = this.raritySelected.replace(" ", "-")
-				await pokemon.card.where({ q : 'name:*'+this.searchInput+"* rarity:" + rarity, pageSize:8, page:this.currentPage }).then((cards) => {
+				await pokemon.card.where({ q : 'name:*'+this.searchInput+"* rarity:" + rarity, pageSize:9, page:this.currentPage }).then((cards) => {
 					console.log(cards)
 					this.cards = cards
 				})
 			}else{
-				await pokemon.card.where({ q : 'name:*'+this.searchInput+"*", pageSize:8, page:this.currentPage }).then((cards) => {
+				await pokemon.card.where({ q : 'name:*'+this.searchInput+"*", pageSize:9, page:this.currentPage }).then((cards) => {
 					console.log(cards)
 					this.cards = cards
 					console.log(this.cards.data)
@@ -105,7 +118,8 @@ export default {
 
 <style scoped>
 #card{
-	width : 400px;
+	width : 30%;
+	margin : auto;
 	height :auto;
 	display : flex;
 	flex-wrap : wrap;
@@ -116,5 +130,38 @@ export default {
 	display : flex;
 	flex-wrap : wrap;
 	flex-direction : row;
+}
+
+#search-inputs{
+	display : flex;
+	flex-direction : row;
+	justify-content : space-evenly;
+	margin-bottom : 30px;
+	background-color : #E7E7E7;
+	padding : 40px;
+}
+
+#search-page-result{
+	display : flex;
+	flex-direction : column;
+	justify-content : space-evenly;
+}
+
+#navigator{
+	margin : auto;
+	width : 200px;
+	display : flex;
+	flex-direction : row;
+	flex-wrap : nowrap;
+	justify-content : space-around;
+	margin-bottom : 30px;
+}
+#navigator button{
+	padding : 10px;
+}
+
+#navigator input{
+	padding : 10px;
+	width : 10px;
 }
 </style>

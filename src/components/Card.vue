@@ -47,7 +47,7 @@ export default {
     await pokemon.card.find(this.id).then(card => {
       this.card = card;
       this.ready = true
-      console.log(card);
+      document.title = document.title + ' | ' + card.set.name + " " + card.name;
     })
   },
 
