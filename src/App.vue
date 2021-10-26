@@ -34,7 +34,7 @@ export default {
 }
 
 #router-view{
-  max-width : 60%;
+  max-width : 70%;
   margin : auto;
   background-color : #F7F7F7;
   padding : 50px;

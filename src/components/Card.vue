@@ -17,7 +17,7 @@
         
         <div>
             <h2 id="card-set-name"> Extension: {{card.set.name}}
-            <img id="card-set-pic" v-bind:src="card.set.images.symbol"></h2>
+            <img id="card-set-pic" v-bind:src="card.set.images.symbol"  v-on:click="goToCollec(card.set.id)"></h2>
         </div>
 
       </div>
@@ -88,6 +88,9 @@ export default {
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
     },
+    goToCollec(setId){
+          window.location.replace(window.location.origin+'/collection/' + setId)
+      },
   }
   }
 </script>
@@ -129,6 +132,10 @@ h3{
 }
 
 img#card-set-pic{
-  height: 2em;
+  height: 1.5em;
+}
+
+img#card-set-pic:hover{
+  cursor: pointer;
 }
 </style>
