@@ -92,6 +92,22 @@ export default {
 </script>
 
 <style scoped>
+
+#set-infos{
+    display : block;
+    flex-direction : column;
+    flex-wrap : wrap;
+    justify-content : space-around;
+    text-align: center;
+}
+
+#set-logo-container > img{
+    display: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    width: 45%;
+}
+
 #cards{
     margin : auto;
     width : 75vw;
@@ -101,8 +117,9 @@ export default {
     justify-content : space-evenly;
 }
 #card{
-    width : 500px;
-    height : 500px;
+    width : auto;
+    height : auto;
+    padding : 1em;
 }
 
 #card:hover{
@@ -110,15 +127,6 @@ export default {
     cursor : pointer;
 }
 
-#set-infos{
-    display : flex;
-    flex-direction : column;
-    flex-wrap : wrap;
-    justify-content : space-around;
-}
 
-#set-logo-container img{
-    height : 300px;
-    width : auto;
-}
+
 </style>
