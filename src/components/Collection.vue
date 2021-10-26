@@ -47,6 +47,7 @@ export default {
       await pokemon.set.find(this.id).then(set => {
           this.set = set;
           this.ready = true;
+          document.title = document.title + ' | ' + set.name;
       }).catch(() => {
           this.ready = false;
       })
