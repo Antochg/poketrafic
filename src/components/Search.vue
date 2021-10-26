@@ -111,6 +111,7 @@ export default {
       }
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
+			alert("Ajouté au panier");
     }
 	}
 }

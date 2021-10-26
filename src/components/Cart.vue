@@ -1,34 +1,6 @@
 <template>
   <div>
     <div v-if="this.cart.length != 0">
-      <button @click="removeAll()">Vider le panier</button>
-      <div v-for="item in cart" :key="item.id">
-        <div id="cart-item">
-          <div id="card-image-container" v-on:click="goToCard(item.id)">
-            <img id="card-img" :src="item.card.images.small" />
-          </div>
-
-          <div id="card-info-container">
-            <h1 v-on:click="goToCard(item.id)">{{ item.card.name }}</h1>
-            <p>{{ item.card.cardmarket.prices.averageSellPrice }} €</p>
-          </div>
-
-          <div id="quantity-container">
-            <button @click="decreaseQuantity(item.id)">-</button>
-            <p>{{ item.quantity }}</p>
-            <button @click="increaseQuantity(item.id)">+</button>
-          </div>
-
-          <div id="total-container">
-            <p>
-              {{ item.card.cardmarket.prices.averageSellPrice * item.quantity }}
-            </p>
-          </div>
-
-          <button @click="removeFromCart(item.id)">Retirer</button>
-        </div>
-      </div>
-
       <div id="checkout-container">
         <h1>Livraison</h1>
         <input id="address" v-model="address" type="text" placeholder="Adresse" />
@@ -41,6 +13,38 @@
 
         <div v-if="totalPrice > 0 && address != '' && zipCode != '' && city != '' && country != ''">
           <button @click="checkout()">Payer</button>
+        </div>
+      </div>
+
+      <div class="items">
+        <button @click="removeAll()">Vider le panier</button>
+        <div v-for="item in cart" :key="item.id">
+          <div id="cart-item">
+            <div id="card-image-container" v-on:click="goToCard(item.id)">
+              <img id="card-img" :src="item.card.images.small" />
+            </div>
+
+            <div id="card-info-container">
+              <h1 v-on:click="goToCard(item.id)">{{ item.card.name }}</h1>
+              <p>{{ item.card.cardmarket.prices.averageSellPrice }} €</p>
+            </div>
+
+            <div id="quantity-container" class="cart-item-end">
+              <button class="quantity-button" @click="decreaseQuantity(item.id)">-</button>
+              <p>{{ item.quantity }}</p>
+              <button class="quantity-button" @click="increaseQuantity(item.id)">+</button>
+            </div>
+
+            <div id="total-container" class="cart-item-end">
+              <p>
+                {{ item.card.cardmarket.prices.averageSellPrice * item.quantity }}
+              </p>
+            </div>
+
+            <div id="button-container" class="cart-item-end">
+              <button @click="removeFromCart(item.id)">Retirer</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -166,6 +170,56 @@ export default {
 </script>
 
 <style scoped>
+.items {
+  width: 65%;
+  float: left;
+}
+
+#checkout-container {
+  width: 30%;
+  float: right;
+}
+
+#cart-item {
+  display : flex;
+  flex-direction : row;
+  flex-wrap : wrap;
+  margin-bottom: 20px;
+}
+
+#card-image-container {
+  width: 20%;
+  height: auto;
+  display: flex;
+  flex-wrap : nowrap;
+}
+
+#card-info-container {
+  width: 50%;
+  display: flex;
+  flex-wrap : nowrap;
+  flex-direction : column;
+}
+
+#quantity-container {
+  vertical-align: middle;
+  height: 20%;
+}
+
+.quantity-button {
+  width: 40%;
+}
+
+.cart-item-end {
+  width: 10%;
+  display: flex;
+  flex-wrap : nowrap;
+  flex-direction : row;
+}
+
+#card-img {
+  width: 100%;
+}
 
 .modal {
   display: none;
