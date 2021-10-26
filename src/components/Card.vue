@@ -124,7 +124,7 @@ h2{
 
 h3{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-style: bold;
+  font-style: bold; 
   font-size: 80%;
 }
 
