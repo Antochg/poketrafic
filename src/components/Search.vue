@@ -33,8 +33,7 @@
 						</a>
 						<div v-if="card.cardmarket!= undefined">
 							<h2 id="card"> {{ card.cardmarket.prices.averageSellPrice }} </h2>
-							<button @click="$router.push('/cart')">Payer</button>
-							<button @click="addToCart(card.id)">add to cart</button>
+							<button @click="addToCart(card.id)">Ajouter au panier</button>
 						</div>
 					</div>
 				</div>
