@@ -21,6 +21,9 @@
             </div>
         </div>
     </div>
+    <div v-else>
+    <h1> Erreur : nous ne pouvons pas accéder à votre requête </h1>
+    </div>
 </div>
   
 </template>
@@ -40,9 +43,12 @@ export default {
     }
   },
   mounted : async function (){
+      console.log(this.id)
       await pokemon.set.find(this.id).then(set => {
           this.set = set;
           this.ready = true;
+      }).catch(() => {
+          this.ready = false;
       })
 
       await pokemon.card.all({ q: 'set.id:'+this.id}).then(result => {
