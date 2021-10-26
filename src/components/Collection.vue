@@ -7,9 +7,11 @@
             </div>
         </div>
         <div id="navigator">
-            <button v-on:click="{if(this.currentPage > 1){this.currentPage--; updateCurrentCards()}}"> ⯇ </button>
+            <button v-if="this.currentPage > 1" v-on:click="{if(this.currentPage > 1){this.currentPage--; updateCurrentCards()}}"> ⯇ </button>
+            <button v-else disabled> ⯇ </button>
             <input type="text" readonly v-model="currentPage"/>
-            <button v-on:click="{if(this.currentPage < Math.floor(this.cards.length  / 9) + 1){this.currentPage++; updateCurrentCards()}}"> ⯈ </button>
+            <button v-if="this.currentPage < Math.floor(this.cards.length  / 9) + 1" v-on:click="{if(this.currentPage < Math.floor(this.cards.length  / 9) + 1){this.currentPage++; updateCurrentCards()}}"> ⯈ </button>
+            <button v-else disabled> ⯈ </button>
         </div>
         <div id="cards">
             <div id="card" v-for="card in currentCards" v-bind:key="card.id">

@@ -2,9 +2,11 @@
     <div>
       <h1> Parcourir les collections </h1>
       <div id="navigator">
-          <button v-on:click="{if(this.currentPage > 1){this.currentPage--; updateSet()}}"> ⯇ </button>
+          <button v-if="this.currentPage > 1" v-on:click="{if(this.currentPage > 1){this.currentPage--; updateSet()}}"> ⯇ </button>
+          <button v-else disabled> ⯇ </button>
           <input type="text" readonly v-model="currentPage"/>
-          <button v-on:click="{if(this.currentPage < Math.floor(this.sets.totalCount / 8) + 1){this.currentPage++; updateSet()}}"> ⯈ </button>
+          <button v-if="this.currentPage < Math.floor(this.sets.totalCount / 9) + 1" v-on:click="{if(this.currentPage < Math.floor(this.sets.totalCount / 9) + 1){this.currentPage++; updateSet()}}"> ⯈ </button>
+          <button v-else disabled> ⯈ </button>
         </div>
       <div v-if="this.ready">
         <div id="collections">
@@ -40,7 +42,7 @@ export default {
     }
   },
   mounted: async function () {
-    await pokemon.set.where({pageSize : 8, page:this.currentPage}).then((sets) => {
+    await pokemon.set.where({pageSize : 9, page:this.currentPage}).then((sets) => {
       this.sets = sets
       this.ready = true
       console.log(sets.data[0]);
@@ -49,7 +51,7 @@ export default {
   methods: {
     async updateSet(){
       this.ready = false;
-      await pokemon.set.where({pageSize : 8, page:this.currentPage}).then((sets) => {
+      await pokemon.set.where({pageSize : 9, page:this.currentPage}).then((sets) => {
         this.sets=sets
         this.ready = true;
       })

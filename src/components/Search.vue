@@ -36,9 +36,13 @@
 			<div id="search-page-result" v-if="this.cards.totalCount > 0">
 				<!-- Navigateur de page -->
 				<div id="navigator">
-					<button v-on:click="{if(this.currentPage > 1){this.currentPage--; getCards()}}"> ⯇ </button>
+					<button v-if="this.currentPage > 1" v-on:click="{if(this.currentPage > 1){this.currentPage--; getCards()}}"> ⯇ </button>
+					<button v-else disabled> ⯇ </button>
+					
 					<input type="text" readonly v-model="currentPage"/>
-					<button v-on:click="{if(this.currentPage < Math.floor(this.cards.totalCount  / 9)){this.currentPage++; getCards()}}"> ⯈ </button>
+
+					<button v-if="this.currentPage < Math.floor(this.cards.totalCount  / 9)" v-on:click="{if(this.currentPage < Math.floor(this.cards.totalCount  / 9)){this.currentPage++; getCards()}}"> ⯈ </button>
+					<button v-else disabled> ⯈ </button>
 				</div>
 				
 				<!-- Affichage en mosaïque des cartes -->
