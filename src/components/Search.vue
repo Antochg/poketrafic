@@ -119,11 +119,30 @@ export default {
 <style scoped>
 #card{
 	width : 30%;
+	min-width : fit-content;
 	margin : auto;
 	height :auto;
 	display : flex;
 	flex-wrap : wrap;
 	flex-direction: column;
+	background-color : red;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+
+#card-image-container{
+	width : fit-content;
+	margin :auto;
+}
+
+#card-img{
+	height : 330px;
+	width : auto;
+}
+
+#card h1 {
+	width : 100%;
+	text-align : center;
 }
 
 #cards{
