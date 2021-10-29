@@ -15,8 +15,8 @@
                 <div id="collection-logo-container">
                   <img id="collection-logo" v-bind:src="set.images.logo">
                 </div>
-                <h1 id="collection-title"> Nom de la collection : {{ set.name}}</h1>
-                <h1 id="collection-release"> Date de sortie : {{ set.releaseDate }} </h1>
+                <h1 id="collection-title">{{ set.name}}</h1>
+                <h2 id="collection-release"> Date de sortie : {{ set.releaseDate }} </h2>
                 <h2 id="collection-printedTotal"> {{ set.printedTotal }} cartes </h2>
               </a>
           </div>
@@ -61,6 +61,21 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+h1,h2{
+  font-family : 'Work Sans', sans-serif;
+  font-weight : bold;
+  margin : 5px;
+  font-size : 1.3em;
+}
+
+h1{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: bold; 
+}
+
 #collection{
   width : 500px;
   height : auto;
@@ -85,11 +100,6 @@ export default {
   margin :auto;
   display : flex;
   margin-bottom : 60px;
-}
-
-h1, h2{
-  margin : 5px;
-  font-size : 1.3em;
 }
 
 

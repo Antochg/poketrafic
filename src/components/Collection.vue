@@ -169,6 +169,13 @@ export default {
 	text-align : center;
 	text-decoration : none;
 	font-size : 1.3em;
+    margin-top : 10px;
+    margin-bottom : 10px;
+}
+
+#card h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: bold; 
 }
 
 #card h2{

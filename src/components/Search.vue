@@ -28,7 +28,7 @@
 				</div>
 			</div>
 
-			<button @click="this.currentPage = 1 ; getCards()">Recherche</button>
+			<button id="search-button" @click="this.currentPage = 1 ; getCards()">Recherche</button>
 		</div>
 
 		<!-- Affichage des résultats -->
@@ -65,7 +65,7 @@
 						<div v-else>
 							<h2 id="card-price"> {{ card.cardmarket.prices.averageSellPrice }} $ </h2>
 							<div id="button-container">
-								<button @click="addToCart(card.id)">Ajouter au panier</button>
+								<button @click="addToCart(card.id, card.name)">Ajouter au panier</button>
 							</div>
 						</div>
 					</div>
@@ -121,34 +121,34 @@ export default {
 		},
 		isInCart(cardId) {
 			if (!localStorage.getItem("cart")) {
-        localStorage.setItem("cart", JSON.stringify([]));
-      }
+				localStorage.setItem("cart", JSON.stringify([]));
+			}
 			else {
 				this.cart = JSON.parse(localStorage.getItem("cart"));
 			}
-      const cartItem = this.cart.find(({ id }) => id === cardId);
-      return Boolean(cartItem);
-    },
-    addToCart(cardId) {
-      const item = this.cards.data.find(({ id }) => id === cardId);
-      if (!localStorage.getItem("cart")) {
-        localStorage.setItem("cart", JSON.stringify([]));
-      }
-      const cartItems = JSON.parse(localStorage.getItem("cart"));
-      if (!this.isInCart(cardId)) {
-        cartItems.push({ id:item.id ,card: item, quantity: 1 });
-      }
-      else {
-        const item = cartItems.find(({ id }) => id === cardId);
-        const index = cartItems.indexOf(item)
-        var quantity = cartItems[index].quantity
-        quantity++
-        cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity })
-      }
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-      this.cart = JSON.parse(localStorage.getItem("cart"));
-			alert("Ajouté au panier");
-    }
+			const cartItem = this.cart.find(({ id }) => id === cardId);
+			return Boolean(cartItem);
+		},
+		addToCart(cardId, cardName) {
+			const item = this.cards.data.find(({ id }) => id === cardId);
+			if (!localStorage.getItem("cart")) {
+				localStorage.setItem("cart", JSON.stringify([]));
+			}
+			const cartItems = JSON.parse(localStorage.getItem("cart"));
+			if (!this.isInCart(cardId)) {
+				cartItems.push({ id:item.id ,card: item, quantity: 1 });
+			}
+			else {
+				const item = cartItems.find(({ id }) => id === cardId);
+				const index = cartItems.indexOf(item)
+				var quantity = cartItems[index].quantity
+				quantity++
+				cartItems.splice(index, 1, { id: item.id, card: item.card, quantity: quantity })
+			}
+			localStorage.setItem("cart", JSON.stringify(cartItems));
+			this.cart = JSON.parse(localStorage.getItem("cart"));
+			alert('La carte " ' + cardName + ' " a été ajouté au panier !');
+		}
 	}
 }
 </script>
@@ -189,10 +189,13 @@ export default {
 }
 
 #card h1, #card h2{
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: bold; 
 	width : 100%;
 	text-align : center;
 	text-decoration : none;
 	font-size : 1.3em;
+	margin-bottom : 10px;
 }
 
 #card h2{
@@ -240,5 +243,54 @@ export default {
 	display : flex;
 	flex-direction : column;
 	justify-content : space-evenly;
+}
+#card button {
+	padding : 10px 60px 10px 60px;
+	border : 3px solid #FFCC00;
+	background-color : #FFCC00;
+	border-radius : 10px 10px;
+	font-family : 'Work Sans', sans-serif;
+	font-weight : bold;
+	color : black;
+}
+
+#search-button{
+	padding : 0 60px 0 60px;
+	background-color : #C7C7C7;
+	border : 3px solid gray;
+	border-radius : 10px 10px;
+	font-size : 16px;
+}
+
+input[type="text"]{
+	padding : 20px;
+	border : none;
+	border-radius : 10px 10px;
+}
+
+select{
+	padding : 20px;
+	border : none;
+	border-radius : 10px 10px;
+}
+
+
+p,label{
+	font-family : 'Work Sans', sans-serif;
+	font-weight : bold;
+}
+
+
+button:hover, select:hover{
+	cursor : pointer;
+}
+
+#card button:hover{
+	cursor : pointer;
+	border-color : #00008B;
+	background-color : #00008B;
+	transition : 0.2s;
+	color : white;
+
 }
 </style>

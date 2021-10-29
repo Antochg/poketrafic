@@ -2,20 +2,32 @@
   <div>
     <div id="cart-form" v-if="this.cart.length != 0">
       <div id="checkout-container">
-        <h1>Livraison</h1>
-        <input id="address" v-model="address" type="text" placeholder="Adresse" />
-        <input id="zipCode" v-model="zipCode" type="text" placeholder="Code postal"/>
-        <input id="city" v-model="city" type="text" placeholder="Ville" />
-        <input id="country" v-model="country" type="text" placeholder="Pays" />
-
-        <h1>Total</h1>
-        <p>{{ this.totalPrice }} €</p>
-
-        <div v-if="totalPrice > 0 && address != '' && zipCode != '' && city != '' && country != ''">
-          <button @click="checkout()">Payer</button>
+        <div id="delivery-inputs">
+          <h1>Informations de livraison</h1>
+          <input id="address" v-model="address" type="text" placeholder="Adresse" />
+          <input id="zipCode" v-model="zipCode" type="text" placeholder="Code postal"/>
+          <input id="city" v-model="city" type="text" placeholder="Ville" />
+          <input id="country" v-model="country" type="text" placeholder="Pays" />
         </div>
 
-        <button @click="removeAll()">Vider le panier</button>
+        <div id="total-price">
+          <h1>Prix total de la commande</h1>
+          <p>{{ this.totalPrice }} $</p>
+        </div>
+
+        <div id="order-buttons">
+
+          <div v-if="totalPrice > 0 && address != '' && zipCode != '' && city != '' && country != ''">
+            <button @click="checkout()">Payer</button>
+          </div>
+
+          <div v-else>
+            <button id="disabled" disabled @click="checkout()">Payer</button>
+          </div>
+        <button  @click="removeAll()">Vider le panier</button>
+
+        </div>
+
       </div>
       <div id="items">
         <table>
@@ -38,8 +50,8 @@
                   <img id="card-img" :src="item.card.images.small" />
               </div>
             </td>
-            <td>
-              <h1 v-on:click="goToCard(item.id)">{{ item.card.name }}</h1>
+            <td id="card-name">
+              <p v-on:click="goToCard(item.id)">{{ item.card.name }}</p>
             </td>
             <td>
               <p>{{ item.card.cardmarket.prices.averageSellPrice }} $</p>
@@ -70,13 +82,13 @@
         <div class="modal-content">
           <span class="close" @click="closeModalCheckoutValidation()">&times;</span>
           <check-out-validation :totalPrice="totalPrice" :address="address" :zipCode="zipCode" :city="city" :country="country"></check-out-validation>
-          <button @click="closeModalCheckoutValidation()">Confirmer</button>
+          <button id="confirm-button" @click="closeModalCheckoutValidation()">Confirmer</button>
         </div>
       </div>
     </div>
-    <div v-else>
-      <p>Le panier est vide !</p>
-			<button @click="$router.push('/search')">Ajouter des articles au panier</button>
+    <div id="cart-empty" v-else>
+      <p>Votre panier est vide !</p>
+			<button @click="$router.push('/search')">Rechercher une carte</button>
     </div>
   </div>
 </template>
@@ -189,6 +201,75 @@ export default {
 
 <style scoped>
 
+*{
+  font-family :'Work Sans', sans-serif;
+  font-weight : bold;
+}
+#cart-empty p{
+  font-size : 32px;
+  font-family : 'Work Sans', sans-serif;
+  font-weight : bold;
+  margin-bottom : 20px;
+}
+
+#cart-empty button{
+  padding : 10px 20px 10px 20px;
+  border : 3px solid gray;
+  font-size : 18px;
+}
+
+#cart-empty button:hover{
+  cursor : pointer;
+}
+
+#delivery-inputs{
+  display : flex;
+  flex-direction : column;
+  margin-bottom : 50px;
+}
+
+#delivery-inputs h1{
+  margin-bottom : 20px;
+}
+#delivery-inputs input{
+  padding : 10px;
+  margin : 5px;
+}
+
+#total-price p {
+  margin-top : 10px;
+  font-size : 28px;
+}
+
+#order-buttons{
+  display : flex;
+  flex-direction : row;
+  flex-wrap : nowrap;
+  justify-content : space-between;
+}
+
+#order-buttons button, button#confirm-button{
+  margin-top : 40px;
+  padding : 20px;
+  font-size : 20px;
+  background-color : #FFCC00;
+  border: none;
+  border-radius : 10px 10px;
+  width : 200px;
+}
+
+#order-buttons button#disabled{
+  background-color : #C7C7C7;
+}
+
+#order-buttons button:hover, button#confirm-button:hover{
+  cursor : pointer;
+}
+
+#order-buttons button#disabled:hover{
+  cursor : default;
+}
+
 #cart-form{
   display : flex;
   flex-direction : row;
@@ -196,7 +277,7 @@ export default {
 }
 
 #items{
-  flex:4;
+  flex:2;
   min-width : 70%;
   display:flex;
   flex-direction : column;
@@ -204,7 +285,10 @@ export default {
 
 #checkout-container {
   flex: 1;
-  background-color : blue; 
+  padding : 50px;
+  border : 1px solid black;
+  margin-right : 20px;
+  margin-bottom : 50px;
 }
 
 table{
@@ -231,11 +315,17 @@ tbody tr, tbody tr td{
 
 th{
   width : fit-content;
+  padding : 20px;
 }
 
 td{
   width : fit-content;
   text-align : center;
+  padding : 20px; 
+}
+
+tbody tr:hover{
+  background-color : #d0def4;
 }
 
 #cart-item {
@@ -264,7 +354,7 @@ td{
   width : 100%;
   display : flex;
   flex-flow : row nowrap;
-  justify-content : space-evenly;
+  justify-content : space-around;
 }
 
 #quantity-manager{
@@ -292,8 +382,9 @@ td{
 }
 
 #button-container button{
-  margin : 10px;
-  width : 90%;
+  margin-top : 20px;
+  width : 50%;
+  padding : 10px;
 }
 
 .cart-item-end {
@@ -339,5 +430,15 @@ td{
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+thead th{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: bold; 
+}
+
+#card-name p{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: bold; 
 }
 </style>

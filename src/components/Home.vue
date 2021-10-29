@@ -2,17 +2,12 @@
   <div id="homepage">
     <div class="section" id="section-1">
       <h1> Bienvenue sur PokeTrafic </h1>
-      <h2> Boutique en ligne de carte à collectionner de la license Pokémon </h2>
-      <h2> Réservez des maintenants les cartes de votre choix ! </h2>
-      <button> Rechercher une carte </button>
+      <img src="../assets/home-illustration.jpg"/>
     </div>
     <div class="section" id="section-2">
-      <h1> PokeTrafic recense l'intégralité des cartes Pokémon sortie à ce jour </h1>
-      <h2> Parcourez l'ensemble des collections </h2>
-    </div>
-    <div class="section" id="section-3">
-      <h1> Découvrez en plus sur le projet PokéTrafic </h1>
-      <a v-bind:href="'/about'"> En savoir plus sur PokéTrafic </a>
+      <h1> PokeTrafic recense l'intégralité des cartes Pokémon sortie à ce jour !  </h1>
+      <a href="/search"><h2> Rechercher une carte </h2></a>
+      <a href="/collections"><h2> Parcourir les collections </h2></a>
     </div>
   </div>
 </template>
@@ -32,28 +27,65 @@ export default {
 </script>
 
 <style scoped>
+
+a{
+  text-decoration : none;
+  color : black;
+}
+h1,h2{
+  font-family : 'Work Sans', sans-serif;
+  font-weight : bold;
+  margin : 5px;
+  font-size : 1.3em;
+}
+
+h1{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: bold; 
+}
+
 #homepage{
   display:flex;
   flex-direction : column;
+  width : 100%;
 }
 
 .section{
-  height : 500px;
+  height : fit-content;
   width : 100%;
   display : flex;
-  padding : 40px;
 }
 
 #section-1{
-  background-color : blue;
   flex-direction : column;
   justify-content : space-evenly;
 }
-#section-2{
-  background-color :red;
+
+#section-1 img{
+  width : 100%;
 }
 
-#section-3{
-  background-color : yellow;
+#section-1 h1{
+  width : 100%;
+  text-align : center;
+  font-size : 3vw;
+  margin-bottom : 30px;
+}
+#section-2{
+  background-color : #FFCC00;
+  flex-direction : row;
+  flex-wrap : nowrap;
+  justify-content : space-evenly;
+}
+
+#section-2 h1, #section-2 h2{
+  height : 100%;
+  padding : 20px;
+  text-align : center;
+}
+
+#section-2 h2:hover{
+  color :white;
+  cursor : pointer;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-		<p>Votre commande d'une valeur de {{ this.totalPrice }} a été enregistré.</p>
+		<p>Votre commande d'une valeur de {{ this.totalPrice }} $ a été enregistré.</p>
 		<p>Adresse de livraison : {{ this.address }}</p>
 		<p>Code postal : {{ this.zipCode }}</p>
 		<p>Ville : {{ this.city }}</p>
@@ -23,5 +23,7 @@ export default {
 </script>
 
 <style scoped>
-
+	p{
+		font-size : 24px;
+	}
 </style>

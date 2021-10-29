@@ -25,7 +25,7 @@
         
         <div id="card-sell">
           <h4 id="card-price">{{card.cardmarket.prices.averageSellPrice}}€</h4>
-          <button class="button1" @click="addToCart(card.id)">Add to cart</button>
+          <button class="button1" @click="addToCart(card.id, card.name)">Add to cart</button>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@ export default {
       const cartItem = this.cart.find(({ id }) => id === cardId);
       return Boolean(cartItem);
     },
-    addToCart(cardId) {
+    addToCart(cardId, cardName) {
       const item = this.card;
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));
@@ -89,7 +89,7 @@ export default {
       }
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
-      alert("Ajouté au panier");
+      alert('La carte " ' + cardName + ' " a été ajouté au panier !');
     },
     goToCollec(setId){
           window.location.replace(window.location.origin+'/collection/' + setId)
