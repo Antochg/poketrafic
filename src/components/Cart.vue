@@ -12,7 +12,7 @@
 
         <div id="total-price">
           <h1>Prix total de la commande</h1>
-          <p>{{ this.totalPrice }} $</p>
+          <p>{{ Number.parseFloat(this.totalPrice).toFixed(2) }} $</p>
         </div>
 
         <div id="order-buttons">
@@ -57,7 +57,7 @@
               <p>{{ item.card.cardmarket.prices.averageSellPrice }} $</p>
             </td>
             <td>
-              <p>{{ item.card.cardmarket.prices.averageSellPrice * item.quantity }} $</p>
+              <p>{{ Number.parseFloat(item.card.cardmarket.prices.averageSellPrice * item.quantity).toFixed(2) }} $</p>
             </td>
             <td>
               <div id="quantity-manager">
