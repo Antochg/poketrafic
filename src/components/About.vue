@@ -2,6 +2,9 @@
   <div>
     <h1> À propos </h1>
   </div>
+  <div>
+    
+  </div>
 </template>
 
 <script>
@@ -18,5 +21,9 @@ export default {
 </script>
 
 <style scoped>
+
+h1{
+  font-family: 'Montserrat';
+}
 
 </style>
