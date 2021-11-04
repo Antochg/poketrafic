@@ -25,7 +25,7 @@
         
         <div id="card-sell">
           <h4 id="card-price">{{card.cardmarket.prices.averageSellPrice}}€</h4>
-          <button class="button1" @click="addToCart(card.id, card.name)">Add to cart</button>
+          <button class="button1" @click="addToCart(card.id, card.name)">Ajouter au panier</button>
         </div>
       </div>
     </div>
@@ -119,7 +119,8 @@ div#card{
 img#card-photo{
   height: auto;
   width: 24em;
-}
+
+  }
 
 #card-propreties{
   width:16em;

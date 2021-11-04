@@ -33,7 +33,7 @@
         <table>
           <thead>
             <tr>
-              <th colspan="5"> Panier </th>
+              <th id='firstcol' colspan="5"> Panier </th>
             </tr>
             <tr>
               <th id="image-preview"> Aperçu </th>
@@ -201,8 +201,10 @@ export default {
 
 <style scoped>
 
+
+
 *{
-  font-family :'Work Sans', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight : bold;
 }
 #cart-empty p{
@@ -296,17 +298,19 @@ table{
   border-collapse : collapse;
 }
 
-thead {
-  border : 1px solid black;
+
+
+
+thead tr:first-child{
+  background-color: #ffcc00;
 }
 
-thead tr, thead tr th{
-  border : 1px solid black;
+thead th{
+  background-color : #ffcc00a2;
 }
 
-tbody tr, tbody tr td{
-  background-color:white;
-  border: 1px solid black;
+tbody tr:nth-child(odd){
+  background-color: rgb(190, 225, 241);
 }
 
 #image-preview{
@@ -318,6 +322,7 @@ th{
   padding : 20px;
 }
 
+
 td{
   width : fit-content;
   text-align : center;
@@ -325,7 +330,11 @@ td{
 }
 
 tbody tr:hover{
-  background-color : #d0def4;
+  background-color : #f8f5c8;
+}
+
+td#card-name, td#image-preview{
+  cursor: pointer;
 }
 
 #cart-item {
@@ -371,7 +380,18 @@ tbody tr:hover{
 }
 
 .quantity-button{
-  padding : 5px 10px;
+  background: none;
+  font-family:"Lato", sans-serif;
+  font-size : 1em;
+  color: black;
+  border: 0px;
+  border-radius: 8px;
+  padding:1em;
+}
+
+.quantity-button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  cursor: pointer;
 }
 
 #button-container {
@@ -382,9 +402,19 @@ tbody tr:hover{
 }
 
 #button-container button{
-  margin-top : 20px;
-  width : 50%;
-  padding : 10px;
+  background: none;
+  font-family:"Lato", sans-serif;
+  font-size: 1em;
+  border: 0px;
+  color: black;
+  border-radius: 8px;
+  margin: 0.5em;
+  padding:1em;
+}
+
+#button-container button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  cursor: pointer;
 }
 
 .cart-item-end {

@@ -40,7 +40,7 @@ h1,h2{
 }
 
 h1{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Montserrat';
   font-style: bold; 
 }
 
