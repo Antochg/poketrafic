@@ -1,24 +1,31 @@
-# my-router-project
+# PokeTrafic
 
-## Project setup
+## Introduction
+
+Poketrafic est un site marchand de vente de cartes Pokemon en ligne.
+
+Les données des cartes sont recupérées à partir de l'[API Pokemon TGC Developers](https://pokemontcg.io/).
+
+
+
+## Installation
+### Prérequis
+- Vue.js
+- npm
+- 
+
 ```
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
 npm run serve
-```
 
-### Compiles and minifies for production
 ```
-npm run build
-```
+## Naviguer sur le site 
+### Les Pages
 
-### Lints and fixes files
-```
-npm run lint
-```
+- Accueil
+- Rechercher les cartes
+- Parcourir les collections
+- Panier
+- A propos
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
