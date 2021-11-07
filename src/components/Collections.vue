@@ -5,9 +5,9 @@
           <button v-if="this.currentPage > 1" v-on:click="{if(this.currentPage > 1){this.currentPage--; updateSet()}}"> ⯇ </button>
           <button v-else disabled> ⯇ </button>
           <input type="text" readonly v-model="currentPage"/>
-          <button v-if="this.currentPage < Math.floor(this.sets.totalCount / 9) + 1" v-on:click="{if(this.currentPage < Math.floor(this.sets.totalCount / 9) + 1){this.currentPage++; updateSet()}}"> ⯈ </button>
+          <button v-if="this.currentPage < Math.floor(this.sets.totalCount / 20) + 1" v-on:click="{if(this.currentPage < Math.floor(this.sets.totalCount / 9) + 1){this.currentPage++; updateSet()}}"> ⯈ </button>
           <button v-else disabled> ⯈ </button>
-        </div>
+      </div>
       <div v-if="this.ready">
         <div id="collections">
           <div id="collection"  v-for="set in sets.data" v-bind:key="set.id">
@@ -25,11 +25,12 @@
       <div v-else>
         <!--<h1> Chargement </h1> -->
       </div>
-      </div>
+    </div>
 </template>
 
 <script>
 import pokemon from 'pokemontcgsdk'
+
 export default {
   name: 'Collections',
   props: {
@@ -37,12 +38,12 @@ export default {
   data () {
     return {
       ready : false,
-      sets: {},
+      sets: [],
       currentPage : 1
     }
   },
   mounted: async function () {
-    await pokemon.set.where({pageSize : 9, page:this.currentPage}).then((sets) => {
+    await pokemon.set.where({pageSize : 20, page:this.currentPage}).then((sets) => {
       this.sets = sets
       this.ready = true
       console.log(sets.data[0]);
@@ -50,13 +51,13 @@ export default {
   },
   methods: {
     async updateSet(){
-      this.ready = false;
-      await pokemon.set.where({pageSize : 9, page:this.currentPage}).then((sets) => {
+      
+      await pokemon.set.where({pageSize : 20, page:this.currentPage}).then((sets) => {
         this.sets=sets
         this.ready = true;
       })
     }
-  }
+  },
 }
 </script>
 
@@ -72,12 +73,13 @@ h1,h2{
 }
 
 h1{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Montserrat';
   font-style: bold; 
+  font-size : 1.5em;
 }
 
 #collection{
-  width : 500px;
+  width : 23em;
   height : auto;
   min-height : 300px;
   padding : 20px;
