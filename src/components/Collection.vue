@@ -5,6 +5,9 @@
             <div id="set-logo-container">
                 <img id="set-logo" v-bind:src="set.images.logo">
             </div>
+            <div id="set-date">
+                 <h2 id="collection-release"> Date de sortie : {{ set.releaseDate }} </h2>
+            </div>
         </div>
         <div id="navigator">
             <button v-if="this.currentPage > 1" v-on:click="{if(this.currentPage > 1){this.currentPage--; updateCurrentCards()}}"> ⯇ </button>
@@ -111,6 +114,10 @@ export default {
     justify-content : space-around;
     text-align: center;
     margin-bottom : 50px;
+}
+
+#set-date {
+    font-family: 'Montserrat';
 }
 
 #set-logo-container > img{

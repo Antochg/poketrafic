@@ -14,7 +14,7 @@
           <h2 id="card-subtypes"><h3>Sous-types:</h3> {{ card.subtypes}}</h2>
           <h2 id="card-rarity"><h3>Rareté:</h3> {{ card.rarity}}</h2>
           <h2 id="card-set-series"><h3>Série:</h3> {{card.set.series}}</h2>
-          
+          <h2 id="card-set-date"><h3>Sortie en:</h3> {{card.set.releaseDate}}</h2>
           <div id="card-extension">
               <h2 id="card-set-name"><h3>Extension:</h3>{{card.set.name}}</h2>
               <div id="card-set-pic">
@@ -23,7 +23,15 @@
           </div>
         </div>
         
-        <div id="card-sell">
+
+        <div id="card-sell" v-if="card.cardmarket== undefined || card.cardmarket.prices == undefined || card.cardmarket.prices.averageSellPrice == undefined">
+          <h2 id="card-price"> Rupture de stock </h2>
+					<div id="button-container">
+						<button class="button1" disabled>Indisponible</button>
+					</div>
+				</div>
+
+        <div v-else id="card-sell">
           <h4 id="card-price">{{card.cardmarket.prices.averageSellPrice}}€</h4>
           <button class="button1" @click="addToCart(card.id, card.name)">Ajouter au panier</button>
         </div>
