@@ -13,6 +13,7 @@
     <br>
     <br>
     <p id='disclaimer'> Disclaimer : <br> Ce site n'est pas un réel site de vente, seulement un projet académique destiné à pratiquer le développement web. Il se repose notamment sur l'<a href="https://pokemontcg.io/">API Pokemon TGC Developers</a>.</p>
+    <div id="credit">Logo original. Icônes conçues par <a href="https://www.flaticon.com/fr/auteurs/roundicons-freebies" title="Roundicons Freebies">Roundicons Freebies</a> sur <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>
   </div>
   </body>
 </template>
@@ -64,6 +65,14 @@ p#disclaimer {
   color: red;
   font-size:1em;
   margin-bottom: 1em;
+}
+
+#credit {
+  font-family: 'work sans', sans-serif;
+  font-style: bold;
+  font-size: 1em;
+  background-color: white;
+  padding: 1em;
 }
 
 </style>

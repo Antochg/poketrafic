@@ -1,10 +1,9 @@
 <template>
     <div id="nav">
-        <router-link to="/">Accueil</router-link> | 
-        <router-link to="/search">Recherche</router-link> | 
-        <router-link to="/collections">Collections</router-link> | 
-        <router-link to="/cart">Panier</router-link> | 
-        <router-link to="/about">À propos</router-link>
+        <div id="navSearch"><router-link to="/search">RECHERCHE</router-link></div>
+        <div id="navCollec"><router-link to="/collections">COLLECTIONS</router-link></div>
+        <div id="navPanier"><router-link to="/cart">PANIER</router-link></div>
+        <div id="navAbout"><router-link to="/about">À PROPOS</router-link></div>
     </div>
 </template>
 
@@ -22,4 +21,20 @@ export default {
 </script>
 
 <style>
+
+#nav {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+#navSearch, #navAbout, #navCollec, #navPanier {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-left: 1em;
+  margin-right: 1em;
+  font-size: 1.2em;;
+}
+
+
+
 </style>
