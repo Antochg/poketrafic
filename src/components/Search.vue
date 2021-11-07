@@ -41,7 +41,7 @@
 					
 					<input type="text" readonly v-model="currentPage"/>
 
-					<button v-if="this.currentPage < Math.floor(this.cards.totalCount  / 9)" v-on:click="{if(this.currentPage < Math.floor(this.cards.totalCount  / 9)){this.currentPage++; getCards()}}"> ⯈ </button>
+					<button v-if="this.currentPage < Math.floor(this.cards.totalCount  / 12)" v-on:click="{if(this.currentPage < Math.floor(this.cards.totalCount  / 12)){this.currentPage++; getCards()}}"> ⯈ </button>
 					<button v-else disabled> ⯈ </button>
 				</div>
 				
@@ -105,14 +105,14 @@ export default {
 		async getCards() {
 			if(this.raritySelected != ""){
 				let rarity = this.raritySelected
-				await pokemon.card.where({ q : 'name:"*'+this.searchInput+'*" !rarity:"' + rarity+'"', pageSize:9, page:this.currentPage, orderBy: this.filterSelected }).then((cards) => {
+				await pokemon.card.where({ q : 'name:"*'+this.searchInput+'*" !rarity:"' + rarity+'"', pageSize:12, page:this.currentPage, orderBy: this.filterSelected }).then((cards) => {
 					console.log(cards)
 					this.cards = cards
 				}).catch((error) => {
 					console.log(error)
 				})
 			}else{
-				await pokemon.card.where({ q : 'name:"*'+this.searchInput+'*"', pageSize:9, page:this.currentPage,  orderBy: this.filterSelected }).then((cards) => {
+				await pokemon.card.where({ q : 'name:"*'+this.searchInput+'*"', pageSize:12, page:this.currentPage,  orderBy: this.filterSelected }).then((cards) => {
 					console.log(cards)
 					this.cards = cards
 					console.log(this.cards.data)
