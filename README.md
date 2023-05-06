@@ -2,7 +2,9 @@
 
 ## Introduction
 
-Poketrafic est un site marchand de vente de cartes Pokemon en ligne.
+Poketrafic est un prototype de site marchand de vente de cartes Pokemon en ligne.
+
+Le site web est un projet réalisé dans le cadre d'un cours de développement web suivi à EFREI
 
 Les données des cartes sont recupérées à partir de l'[API Pokemon TGC Developers](https://pokemontcg.io/).
 
